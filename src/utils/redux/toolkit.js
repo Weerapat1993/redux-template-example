@@ -1,6 +1,4 @@
-import get from 'lodash/get'
 import { createSlice } from '@reduxjs/toolkit';
-import { createDeepEqualSelector } from '../reselect';
 
 export const querySlice = (name) => createSlice({
   name,
@@ -42,17 +40,3 @@ export const querySlice = (name) => createSlice({
     },
   },
 });
-
-export const querySelector = reducerName => state => {
-  const defaultState = {
-    loading: false,
-    error: '',
-    isLoaded: false,
-    data: [], 
-  }
-  // return (key, path, defaultValue) => path ? get(state, `${reducerName}.keys.${key}.${path}`, defaultValue) : get(state, `${reducerName}.keys.${key}`, defaultState)
-  return createDeepEqualSelector(
-    (key, path, defaultValue) => path ? get(state, `${reducerName}.keys.${key}.${path}`, defaultValue) : get(state, `${reducerName}.keys.${key}`, defaultState),
-    (value) => value
-  )
-};

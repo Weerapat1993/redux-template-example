@@ -1,9 +1,10 @@
-import { useEffect, useCallback } from 'react';
+import { useEffect, useCallback, useMemo } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
-import { request, success, failure, selectUserById } from '../redux/userSlice'
+import { request, success, failure, makeSelectUserById } from '../redux/userSlice'
 
 export const useUser = (userId) => {
+  const selectUserById = useMemo(makeSelectUserById, [])
   // Reducer
   const user = useSelector(selectUserById)
   const dispatch = useDispatch()
