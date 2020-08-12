@@ -9,11 +9,11 @@ import {
 } from './counterSlice';
 import styles from './Counter.module.css';
 
-export function Counter() {
+export const Counter = React.memo(() => {
   const count = useSelector(selectCount);
   const dispatch = useDispatch();
   const [incrementAmount, setIncrementAmount] = useState('2');
-
+  console.log('render')
   return (
     <div>
       <div className={styles.row}>
@@ -57,4 +57,4 @@ export function Counter() {
       </div>
     </div>
   );
-}
+});
