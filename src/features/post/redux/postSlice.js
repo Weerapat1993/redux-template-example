@@ -1,6 +1,7 @@
 import { querySlice } from '../../../utils/redux/toolkit';
 import { createSelector } from 'reselect';
 import get from 'lodash/get'
+import axios from 'axios';
 
 const defaultState = {
   loading: false,
@@ -12,6 +13,14 @@ const defaultState = {
 
 export const postSlice = querySlice('post')
 export const { request, success, failure } = postSlice.actions;
+
+// Async Actions
+export const fetchPostByUserId = (key) => (dispatch) => {
+  dispatch(request({ key }));
+  return axios(`https://jsonplaceholder.typicode.com/posts?userId=${key}`)
+    .then(({ data }) => dispatch(success({ data, key })))
+    .catch(error => dispatch(failure({ error, key })))
+}
 
 // The function below is called a selector and allows us to select a value from
 // the state. Selectors can also be defined inline where they're used instead of
